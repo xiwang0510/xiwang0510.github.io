@@ -2,63 +2,40 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>国资 e学</title>
+    <title>国资e学</title>
 
-    <!-- 微信分享优化：固定标题和描述 -->
+    <!-- 微信分享核心：固定大标题 + 小标题网址 -->
     <meta property="og:title" content="国资e学" />
-    <meta property="og:description" content="peixun.tcsasac.com" />
-    <meta property="og:image" content="https://xiwang0510.github.io/certs/default.jpg" />
-    <meta property="og:url" content="https://xiwang0510.github.io/cert" />
+    <meta property="og:description" content="‌peixun.tcsasac.com" />
+    <meta property="og:image" content="https://xiwang0510.github.io/certs/ceshi.jpg" />
+    <meta property="og:url" content="https://xiwang0510.github.io/" />
     <meta property="og:type" content="website" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            background: #fff;
-            overflow: hidden;
-        }
-        #certImg {
-            width: 100vw;
-            height: 100vh;
-            object-fit: contain;
-        }
-        .loading {
-            text-align: center;
-            font-size: 18px;
-            color: #666;
-            margin-top: 20px;
-        }
+        body, html { margin:0; padding:0; background:#fff; overflow:hidden; }
+        img { width:100vw; height:100vh; object-fit:contain; display:none; }
+        .loading { text-align:center; font-size:18px; color:#666; margin-top:20px; }
     </style>
 </head>
 <body>
     <div class="loading">正在加载证书...</div>
-    <img id="certImg" src="" alt="结业证书" style="display:none;">
+    <img id="certImg" src="" alt="结业证书">
 
     <script>
-        // 获取 URL 中的 ?id=xxx 参数
         const urlParams = new URLSearchParams(window.location.search);
-        let id = urlParams.get('id') || 'default';
-
-        // 安全处理：只允许字母、数字、中文、下划线（防止XSS）
+        let id = urlParams.get('id') || 'ceshi';
         id = id.replace(/[^a-zA-Z0-9_\u4e00-\u9fa5]/g, '');
-
-        // 构建图片路径
         const imgUrl = `https://xiwang0510.github.io/certs/${id}.jpg`;
-
-        // 显示图片
         const img = document.getElementById('certImg');
         img.src = imgUrl;
-        img.onload = function() {
+        img.onload = () => {
             document.querySelector('.loading').style.display = 'none';
-            this.style.display = 'block';
+            img.style.display = 'block';
         };
-        img.onerror = function() {
-            document.querySelector('.loading').innerText = '证书未找到，请检查链接是否正确。';
+        img.onerror = () => {
+            document.querySelector('.loading').innerText = '证书图片未找到，请检查文件名是否为：' + id + '.jpg';
         };
     </script>
 </body>
-
 </html>
